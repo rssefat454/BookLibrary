@@ -1,0 +1,24 @@
+{% extends 'library/base.html' %}
+{% load static %}
+{% block content %}
+<div class="book-detail">
+    {% if book.image %}
+        <img src="{{ book.image.url }}" alt="{{ book.title }}">
+    {% else %}
+        <img src="{% static 'library/default.png' %}" alt="{{ book.title }}">
+    {% endif %}
+
+    <h1>{{ book.title }}</h1>
+    <p><strong>Author:</strong> {{ book.author }}</p>
+    <p><strong>Category:</strong> {{ book.category }}</p>
+    <p><strong>Published Date:</strong> {{ book.published_date }}</p>
+    <p class="status {% if book.status %}available{% else %}borrowed{% endif %}">
+        {% if book.status %}Available{% else %}Borrowed{% endif %}
+    </p>
+    <p><strong>Description:</strong> {{ book.description }}</p>
+
+    <a href="{% url 'edit_book' book.pk %}">Edit</a>
+    <a href="{% url 'delete_book' book.pk %}">Delete</a>
+    <a href="{% url 'home' %}">Back to Home</a>
+</div>
+{% endblock %}
